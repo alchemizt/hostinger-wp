@@ -17,9 +17,9 @@ SSH_PORT="${SSH_PORT}"                      # SSH port (default is 22)
 WP_URL="${WP_URL}"
 REMOTE_WP_PATH="/home/${WP_USER}/domains/${WP_URL}/public_html"  # Path to WordPress installation
 PHP_INI_PATH="/etc/php/7.4/fpm/php.ini"  # Path to the PHP ini file
-LOCAL_PREMIUM_PLUGIN_PATH="/home/bin/hostinger/files/plugins"  # Local path where premium plugins are stored
+LOCAL_PREMIUM_PLUGIN_PATH="./files/plugins/elementor"  # Local path where premium plugins are stored
 THEMES=("hello-elementor" "astra")  # List of themes to install
-PLUGINS=("elementor" "classic-editor" "contact-form-7" "envato-market,")  # List of free plugins to install
+PLUGINS=("elementor" "classic-editor" "contact-form-7" "envato-elements")  # List of free plugins to install
 PREMIUM_PLUGINS=("elementor-pro.zip")  # List of premium plugin ZIP files (local)
 
 
@@ -30,7 +30,7 @@ for plugin_zip in "${PREMIUM_PLUGINS[@]}"; do
         scp -P "$SSH_PORT" "$LOCAL_PREMIUM_PLUGIN_PATH/$plugin_zip" "$SSH_USER@$SSH_HOST:$REMOTE_WP_PATH/wp-content/plugins/"
         echo "Uploaded: $plugin_zip"
     else
-        echo "File not found: $plugin_zip"
+        echo "File not found: $LOCAL_PREMIUM_PLUGIN_PATH/$plugin_zip"
     fi
 done
 
@@ -76,13 +76,13 @@ for plugin_zip in "${PREMIUM_PLUGINS[@]}"; do
 EOF
 done
 
-# Step 7: Modify PHP ini Settings
-echo "Modifying PHP ini settings..."
-ssh -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" << EOF
-    sudo sed -i 's/^upload_max_filesize = .*/upload_max_filesize = 64M/' "$REMOTE_PHP_INI_PATH"
-    sudo sed -i 's/^post_max_size = .*/post_max_size = 64M/' "$REMOTE_PHP_INI_PATH"
-    sudo sed -i 's/^memory_limit = .*/memory_limit = 256M/' "$REMOTE_PHP_INI_PATH"
-    sudo sed -i 's/^max_execution_time = .*/max_execution_time = 300/' "$REMOTE_PHP_INI_PATH"
-    sudo sed -i 's/^max_input_time = .*/max_input_time = 300/' "$REMOTE_PHP_INI_PATH"
-    sudo systemctl restart php7.4-fpm
-EOF
+# # Step 7: Modify PHP ini Settings
+# echo "Modifying PHP ini settings..."
+# ssh -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" << EOF
+#     sudo sed -i 's/^upload_max_filesize = .*/upload_max_filesize = 64M/' "$REMOTE_PHP_INI_PATH"
+#     sudo sed -i 's/^post_max_size = .*/post_max_size = 64M/' "$REMOTE_PHP_INI_PATH"
+#     sudo sed -i 's/^memory_limit = .*/memory_limit = 256M/' "$REMOTE_PHP_INI_PATH"
+#     sudo sed -i 's/^max_execution_time = .*/max_execution_time = 300/' "$REMOTE_PHP_INI_PATH"
+#     sudo sed -i 's/^max_input_time = .*/max_input_time = 300/' "$REMOTE_PHP_INI_PATH"
+#     sudo systemctl restart php7.4-fpm
+# EOF
