@@ -1,0 +1,7 @@
+export SITE_NAME="MAINITI_DEMO2"
+export WP_USER="u236670348" 
+export SSH_HOST="147.79.84.221" 
+export SSH_USER="u236670348" 
+export SSH_PORT="65002" 
+export WP_URL="demo2.entheology.blog/"
+

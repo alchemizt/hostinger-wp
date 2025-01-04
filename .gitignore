@@ -1,0 +1,47 @@
+# Ignore direnv configuration
+.envrc
+
+# Ignore dotenv files
+.env
+.envrc
+.env.local
+.env.*.local
+
+# Ignore log files and databases
+*.log
+*.sqlite
+*.sqlite3
+
+# Ignore compiled and cache files
+.cache/
+node_modules/
+dist/
+build/
+*.pyc
+__pycache__/
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore editor-specific files
+.vscode/
+.idea/
+*.swp
+
+# Ignore deployment artifacts
+*.zip
+*.tar.gz
+
+# Ignore sensitive keys and credentials
+*.key
+*.pem
+*.crt
+
+# Ignore temporary files
+*.tmp
+*.bak
+*.orig
+~*
+
+files/*
